@@ -1,0 +1,51 @@
+<html>
+
+<head>
+    <SCRIPT>
+        var flag = 1,
+            pos = 0,
+            img = null,
+            url = 'http://localhost:3000'; // change this to IP address of server
+         //var fetch = require('node-fetch');
+ let maxsalary=0;
+ let indexOfMax=0;
+// async function
+async function fetchAsync () {
+ // await response of fetch call
+ let response = await fetch('https://pollysnips.s3.amazonaws.com/bostonEmployeeSalaries.json ');
+ // only proceed once promise is resolved
+ let data = await response.json();
+ // only proceed once second promise is resolved
+
+ return data;
+}
+// trigger async function
+// log response or catch error of fetch promise
+
+function findMaxSalary(data) {
+
+
+  for(var i=0;i<data.data.length;i++){
+	if(Number(data.data[i][11])>maxsalary){
+          maxsalary=Number(data.data[i][11]);
+            indexOfMax=i;
+	}
+  }
+  
+ console.log('Maximum Salary Found:',maxsalary,indexOfMax);
+ alert('Maximum Salary Found:'+maxsalary+' '+ indexOfMax);
+}
+
+
+fetchAsync()
+   .then(data => findMaxSalary(data))
+   .catch(reason => console.log(reason.message));
+
+
+
+</SCRIPT>
+</head>
+
+<body>
+    <H1><p>Boston City Maximun Salary</H1>
+</body>
